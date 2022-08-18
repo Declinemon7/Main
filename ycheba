@@ -1,0 +1,158 @@
+Числовая угодайка >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+import random
+def guess_the_number(a, b):
+    a, b = 1, 100
+    num = random.randint(a, b)
+    print('Попробуйте угадать загаданное число :)')
+    while True:
+        digit = int(input())
+        if digit > num:
+            print('Слишком много, попробуйте еще раз')
+        elif digit < num:
+            print('Слишком мало, попробуйте еще раз')
+        else:
+            print('Вы угадали, поздравляем!')
+            break
+        
+print(guess_the_number(1, 100))
+
+Генератор паролей>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+import random
+def generation_password():
+    i = 1
+    l = []
+    result = []
+    #############################################
+    while True:
+        amount_char = input('Сколько символов в пароле?: ')
+        if amount_char.isdigit():
+            amount_char = int(amount_char)
+            break
+        else:
+            print('Вы должны ввести цифру')
+    #######################1###################### 
+    while True:
+        inclide_digit = input('Включать цифры?(да/нет): ').lower()
+        if inclide_digit in ['да', 'нет']:
+            if inclide_digit == 'да':
+                l.append('1234567890')
+            break
+        else:
+            print('Некорректный ввод!')
+    #######################2###################### 
+    while True:
+        include_letter = input('Включать строчные буквы?(да/нет): ').lower()
+        if include_letter in ['да', 'нет']:
+            if include_letter == 'да':
+                l.append('qazwsxedcrfvtgbyhnujmikolp')
+            break
+        else:
+            print('Некорректный ввод!')
+    #######################3###################### 
+    while True:
+        include_LETTER = input('Включать ПРОПИСНЫЕ буквы?(да/нет): ').lower()
+        if include_LETTER in ['да', 'нет']:
+            if include_LETTER == 'да':
+                l.append('QAZWSXEDCRFVTGBYHNUJMIKOLP')
+            break
+        else:
+            print('Некорректный ввод!')
+    #######################4###################### 
+    while True:
+        include_symbol = input('Включать символы?(да/нет): ').lower()
+        if include_symbol in ['да', 'нет']:
+            if include_symbol == 'да':
+                l.append('!#$%&*+-=?@^_')
+            break
+        else:
+            print('Некорректный ввод!')
+    for i in range(len(l)):
+      result += random.choice(l[i])
+    lenl = len(l)
+    l = ''.join(l)
+    for i in range(amount_char - lenl):
+      result += random.choice(l)
+    random.shuffle(result)
+    result = ''.join(result)
+    print(result)
+      
+    #############################################
+generation_password()
+
+Шифр цезаря>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+import random
+def shifr_cezar():
+    print('Привет! Я могу зашифровать или расшифровать исходный текст.')
+    
+    za_ras = input('Нужно зашифровать или расшифровать?(Введите: за или рас): ')
+    while True:
+      if za_ras.lower() in ('за', 'рас'):
+        break
+      za_ras = input('Не понимаю! Введите: за или рас')
+      
+    language = input('Язык текста (Введите: русс или ингл):')
+    while True:
+      if language.lower() in ('русс', 'ингл'):
+        break
+      language = input('Не понимаю! Введите: русс или ингл')
+      
+    while True:
+      flag = True
+      txt = input('Введи свой текст: ')
+      if language.lower() == 'русс':
+        n = random.randint(1, 31)
+        for c in txt:
+          if c.lower() not in 'абвгдежзийклмнопрстуфхцчшщъыьэюя':
+            print('Вы ввели как минимум 1 букву на другом языке! Повторите ввод.')
+            flag = False
+            break
+      elif language.lower() == 'ингл':
+        n = random.randint(1, 25)
+        for c in txt:
+          if c.lower() not in 'qwertyuiopasdfghjklzxcvbnm':
+            print('Вы ввели как минимум 1 букву на другом языке! Повторите ввод.')
+            flag = False
+            break
+      if flag == True:
+        break
+      
+    if za_ras.lower() == 'за':
+      txt = list(txt)
+      for i in range(len(txt)):
+        symbol = ord(txt[i]) + n
+        if language.lower() == 'русс':
+          if symbol > 1103:
+            symbol -= 32
+        elif language.lower() == 'ингл':
+          if symbol > 122:
+            symbol -= 26
+        txt[i] = chr(symbol)
+      txt = ''.join(txt)
+      print(txt)
+      
+    elif za_ras.lower() == 'рас':
+      if language.lower() == 'русс':
+        for i in range(1, 32):
+          txt1 = list(txt)
+          for j in range(len(txt1)):
+            symbol = ord(txt1[j]) - i
+            if symbol < 1072:
+              symbol += 32
+            txt1[j] = chr(symbol)
+          txt1 = ''.join(txt1)
+          print(txt1)
+      elif language.lower() == 'ингл':
+        for i in range(1, 26):
+          txt1 = list(txt)
+          for j in range(len(txt1)):
+            symbol = ord(txt1[j]) - i
+            if symbol < 97:
+              symbol += 26
+            txt1[j] = chr(symbol)
+          txt1 = ''.join(txt1)
+          print(txt1)
+              
+print(shifr_cezar())
